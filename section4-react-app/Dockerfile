@@ -5,3 +5,5 @@ COPY . .
 # ADD http://..../file.json .
 # ADD will uncompress the zip
 # ADD file.zip .
+RUN npm install
+ENV API_URL=https://api.myapp.com/
