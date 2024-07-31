@@ -1,3 +1,79 @@
+```sh
+docker build -t react-app .
+```
+
+# 000
+
+# 001
+
+# 002
+
+# 003
+
+# 004
+
+# 005
+
+# 006
+
+# 007
+
+# 008
+
+# 009
+
+# 010
+
+# 011
+
+# 012
+
+# 013
+
+# 014
+
+# 015
+
+# 016
+
+# 017
+
+# 018
+
+# 019
+
+# 020
+
+# 021
+
+# 022
+
+# 023
+
+# 024
+
+# 025
+
+# 026
+
+# 027
+
+# 028
+
+# 029
+
+# 030
+
+# 031
+
+# 032
+
+# 033
+
+# 034
+
+# 035
+
 # 036
 
 create enriroment variables
@@ -47,3 +123,341 @@ whoami
 ```
 
 # 039 defining entrypoints
+
+shell form
+this spins up a new shell
+
+```sh
+CMD npm start
+```
+
+exec form
+this just runs the command directly
+
+```sh
+CMD ['npm','start']
+```
+
+this is more difficult to override
+--entrypoint to override the command
+
+```sh
+ENTRYPOINT [ "executable" ]
+```
+
+# 040 speeding up builds
+
+all the lines in the dockerfile are like different layers
+user layer caching
+to organize your build you should structure with the instructions that do not change frequently at the top
+
+this speeds up the image because it can just re use the npm install the it did previusly
+
+```sh
+COPY package*.json .
+RUN npm install
+COPY . .
+```
+
+# 041 removeing images and containers
+
+```sh
+docker image prune
+```
+
+```sh
+docker container prune
+```
+
+```sh
+docker image rm <name></name>
+docker image rm <id></id>
+docker image rm <name></name> <name></name>
+docker image rm <id></id> <id></id>
+```
+
+# 042 taggin images
+
+```sh
+docker build -t react-app:buster
+docker build -t react-app:3.1.5
+docker build -t react-app:77
+```
+
+re tag it
+
+```sh
+docker image tag <image name> <new image name>
+```
+
+# 043
+
+go through this again set up the account
+
+```sh
+
+```
+
+# 044 saving and loading images
+
+```sh
+docker image save -o react-app.tar react-app:2
+```
+
+```sh
+docker image load -i react-app.tar
+```
+
+# 045 intro
+
+starting and stopping containers
+publishing pots
+viewing logs
+executing commands in containers
+removing containser
+persisting data using volumes
+sharing source code
+
+```sh
+
+```
+
+# 046 staring containers
+
+run in the back ground with -d
+
+```sh
+docker run -d react-app
+```
+
+naming container so that you are not creating a new container every time you use run
+
+```sh
+docker run -d --name <name> react-app
+```
+
+# 047
+
+```sh
+docker logs <container>
+```
+
+```sh
+docker logs -f <container>
+```
+
+number of line to show
+
+```sh
+docker logs -n 5 <container>
+```
+
+time stamps
+
+```sh
+docker logs -n 5 -t <container>
+```
+
+# 048 publishing ports
+
+```sh
+docker run -d -p 3000:3000 --name c1 react-app
+```
+
+# 049
+
+```sh
+docker exec c1 ls
+```
+
+```sh
+docker exec -it c1 sh
+```
+
+# 050 stopping and starting container
+
+```sh
+docker stop <container name>
+```
+
+```sh
+doker start <conatiner name>
+```
+
+# 051
+
+force remove running container
+
+```sh
+docker rm -f c1
+```
+
+# 052 container file system
+
+just made a file in one container and checked it the other container had that file it does not
+
+```sh
+
+```
+
+# 053
+
+```sh
+
+```
+
+# 054
+
+```sh
+
+```
+
+# 055
+
+```sh
+
+```
+
+# 056
+
+```sh
+
+```
+
+# 057
+
+```sh
+
+```
+
+# 058
+
+```sh
+
+```
+
+# 059
+
+```sh
+
+```
+
+# 060
+
+```sh
+
+```
+
+# 061
+
+```sh
+
+```
+
+# 062
+
+```sh
+
+```
+
+# 063
+
+```sh
+
+```
+
+# 064
+
+```sh
+
+```
+
+# 065
+
+```sh
+
+```
+
+# 066
+
+```sh
+
+```
+
+# 067
+
+```sh
+
+```
+
+# 068
+
+```sh
+
+```
+
+# 069
+
+```sh
+
+```
+
+# 070
+
+```sh
+
+```
+
+# 071
+
+```sh
+
+```
+
+# 072
+
+```sh
+
+```
+
+# 073
+
+```sh
+
+```
+
+# 074
+
+```sh
+
+```
+
+# 075
+
+```sh
+
+```
+
+# 076
+
+```sh
+
+```
+
+# 077
+
+```sh
+
+```
+
+# 078
+
+```sh
+
+```
+
+# 079
+
+```sh
+
+```
