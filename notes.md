@@ -300,16 +300,32 @@ just made a file in one container and checked it the other container had that fi
 
 ```
 
-# 053
+# 053 persisting data using volumes
+
+create volume
 
 ```sh
-
+docker volume create <volume name>
 ```
 
-# 054
+inspect volume
 
 ```sh
+docker volume inspect <volume name>
+```
 
+# 054 copying file between the host and container
+
+this is how you copy a file from the container to the host
+
+```sh
+docker cp <container name>:<container file location> <host file location>
+```
+
+copy a file from the host to the container
+
+```sh
+docker cp <host file locaton> <container name>:<container file location>
 ```
 
 # 055
