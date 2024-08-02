@@ -328,13 +328,82 @@ copy a file from the host to the container
 docker cp <host file locaton> <container name>:<container file location>
 ```
 
-# 055
+# 055 shring the source code with container
+
+this maps the rection5-react-app to the container /app
 
 ```sh
-
+docker run -d -p 5001:3000 -v $(pwd):/app --name react-test react-app
 ```
 
+Error: EACCES: permission denied, scandir '/app'
+
+it worked with this as the dockerfile
+
+<!-- Dockerfile
+FROM node:14.16.0-alpine3.13
+# RUN addgroup app && adduser -S -G app app
+# USER app
+WORKDIR /app
+# COPY --chown=app package.json .
+COPY package.json .
+USER root
+RUN mkdir data
+RUN npm install
+# USER app
+# COPY --chown=app . .
+COPY . .
+ENV API_URL=http://api.myapp.com/
+EXPOSE 3000
+CMD ["npm", "start"] -->
+
+this here on the top
+
+> react-app@0.1.0 start /app
+> react-scripts start
+
+<!-- npm ERR! code ELIFECYCLE
+npm ERR! syscall spawn sh
+npm ERR! file sh
+npm ERR! path sh
+npm ERR! errno -13
+npm ERR! react-app@0.1.0 start: `react-scripts start`
+npm ERR! spawn sh EACCES
+npm ERR!
+npm ERR! Failed at the react-app@0.1.0 start script.
+npm ERR! This is probably not a problem with npm. There is likely additional logging output above.
+
+npm ERR! A complete log of this run can be found in:
+npm ERR! /home/app/.npm/\_logs/2024-08-01T16_08_14_843Z-debug.log -->
+
+sveltekit
+docker run -d -p 3000:3000 --name svelte-test svelte-app
+
+vvvvvvvvvvvvvsvelte.config.js vvvvvvvvvvvvvvv
+import adapter from "@sveltejs/adapter-node";
+
+vvvvvvvvvvvvvvite.config.js vvvvvvvvvvvvvvv
+server: { port: 3000 },
+
+<!-- # Create a node base image running node 16.14.0 on Alpine linux version 3.15
+# FROM node:16.14.0-alpine3.15
+# RUN addgroup app && adduser -S -G app app
+# RUN mkdir /app && chown app:app /app
+# USER app
+# WORKDIR /app
+# # COPY --chown=app package.json .
+# RUN npm install
+# COPY . .
+# ENV API_URL=http://api.myapp.com
+# EXPOSE 3000
+# CMD ["npm", "start"] -->
+
 # 056
+
+docker compose
+docker networking
+database migration
+running automated test
 
 ```sh
 
@@ -348,8 +417,16 @@ docker cp <host file locaton> <container name>:<container file location>
 
 # 058
 
-```sh
+remove all containers
 
+```sh
+docker container rm -f $(docker container ls -aq)
+```
+
+remove all images
+
+```sh
+docker image rm $(docker image ls -q)
 ```
 
 # 059
