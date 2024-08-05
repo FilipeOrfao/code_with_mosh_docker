@@ -281,7 +281,7 @@ docker stop <container name>
 ```
 
 ```sh
-doker start <conatiner name>
+docker start <conatiner name>
 ```
 
 # 051
@@ -431,62 +431,144 @@ docker image rm $(docker image ls -q)
 
 # 059
 
-```sh
-
-```
-
-# 060
-
-```sh
-
-```
-
-# 061
-
-```sh
-
-```
-
-# 062
-
-```sh
-
-```
-
-# 063
+it was like this
+{
+"auths": {},
+"credsStore": "desktop",
+"currentContext": "default",
+"plugins": {
+"-x-cli-hints": {
+"enabled": "true"
+}
+}
+}
+replace it with this credsStore
+"credStore": {
+"stackOrchestrator" : "swarm",
+"experimental" : "disabled",
+"credStore" : "desktop"
+},
 
 ```sh
-
+docker-compose up
 ```
 
-# 064
+tcp4 0.0.0.0:27017: bind: address already in use
+
+# 060 JSON yaml
 
 ```sh
 
 ```
 
-# 065
+# 061 compose file
+
+```yml
+services:
+  frontend:
+    depends_on:
+      - backend
+    build: ./frontend
+    ports:
+      - 3000:3000
+  backend:
+    build: ./backend
+    ports:
+      - 3001:3001
+    environment:
+      DB_URL: mongodb://db/vidly
+  db:
+    image: mongo:4.0-xenial
+    ports:
+      - 27017:27017
+```
+
+might have to change the port because the port migiht be in use
+
+# 062 build image docker compose
 
 ```sh
+docker-compose build
+```
 
+it uses the directory name as the image name
+
+# 063 starting and stoping docker compose aplication
+
+```sh
+docker-compose up
+```
+
+might have to change the port because the port migiht be in use
+rebuild and up
+
+```sh
+docker-compose up --build
+```
+
+detached mode
+
+```sh
+docker-compose up -d
+```
+
+this also removes the containers but not the images
+
+```sh
+docker-compose down
+```
+
+# 064 docker networking
+
+```sh
+docker network ls
+```
+
+# 065 viewing logs
+
+```sh
+docker-compose logs
 ```
 
 # 066
 
-```sh
+connect container to local files
+you must install all the dependencies to make it work
 
+```sh
+  api:
+    depends_on:
+      - db
+    build: ./backend
+    ports:
+      - 3001:3001
+    environment:
+      DB_URL: mongodb://db/vidly
+    command: ./docker-entrypoint.sh
+    volumes:
+      - ./backend:/app
 ```
 
 # 067
 
-```sh
-
+```yml
+command: ./docker-entrypoint.sh
 ```
 
-# 068
+remove the database volume
 
 ```sh
+docker volume rm vidly_vidly
+```
 
+# 068 running tests
+
+```yml
+web-tests:
+  image: vidly_web
+  volumes:
+    - ./frontend:/app
+  command: npm test
 ```
 
 # 069

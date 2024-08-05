@@ -1,22 +1,14 @@
 version: "3.8"
 
 services:
-  web:
+  frontend:
     depends_on:
-      - api
+      - backend
     build: ./frontend
     ports:
       - 3000:3000
-    volumes:
-      - ./frontend:/app
 
-  web-tests:
-    image: vidly_web
-    volumes:
-      - ./frontend:/app
-    command: npm test
-
-  api:
+  backend:
     depends_on:
       - db
     build: ./backend
@@ -24,9 +16,6 @@ services:
       - 3001:3001
     environment:
       DB_URL: mongodb://db/vidly
-    volumes:
-      - ./backend:/app
-    # command: ./wait-for db:3002 && migrate-mongo up && npm start
     command: ./docker-entrypoint.sh
 
   db:
