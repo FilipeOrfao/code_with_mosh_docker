@@ -336,6 +336,7 @@ this maps the rection5-react-app to the container /app
 docker run -d -p 5001:3000 -v $(pwd):/app --name react-test react-app
 ```
 
+"dev": "vite dev --host=0.0.0.0",
 Error: EACCES: permission denied, scandir '/app'
 
 it worked with this as the dockerfile
@@ -571,13 +572,23 @@ web-tests:
   command: npm test
 ```
 
-# 069
+# 069 deoply intro
+
+deployment options
+getting vps
+docker machine
+creating optimized production images
+deploying the application
 
 ```sh
 
 ```
 
 # 070
+
+single host deployment
+
+cluster deployment
 
 ```sh
 
@@ -589,16 +600,29 @@ web-tests:
 
 ```
 
-# 072
+# 072 docker machine
+
+https://github.com/docker/machine
+
+install docker machine
+https://github.com/docker/machine/releases
 
 ```sh
-
+curl -L https://github.com/docker/machine/releases/download/v0.16.2/docker-machine-`uname -s`-`uname -m` >/tmp/docker-machine &&
+    chmod +x /tmp/docker-machine &&
+    sudo cp /tmp/docker-machine /usr/local/bin/docker-machine
 ```
 
-# 073
+# 073 provisioning a host
+
+docs.docker.com/machine/drivers
 
 ```sh
-
+docker-machine create \
+--driver digitalocean \
+--digitalocean-access-token <token>\
+--engine-install-url "https://releaes.rancher.com/install-docker/19.03.9.sh"\
+  <give the server a name>
 ```
 
 # 074
@@ -609,14 +633,42 @@ web-tests:
 
 # 075
 
+change the docker compose to file so that is for the production
+configure the container to do someting then the container stops
+https://docs.docker.com/compose/compose-file/05-services/#restart
+
 ```sh
 
 ```
 
-# 076
+# 076 reducing the image file
+
+run build to create an optimized assets for production
 
 ```sh
+sudo npm build
+```
 
+make a production docker file
+Dockerfile.prod
+
+```dockerfile
+# step 1 bulid stage
+FROM node:14.16.0-alpine3.13 AS build-stage
+
+WORKDIR /app
+COPY package*.json ./
+RUN npm install
+COPY . .
+RUN npm run build
+
+# step 2 production stage
+FROM nginx:1.12-alpine AS production-stage
+# RUN addgroup app && adduser -S -G app app
+# USER app
+COPY --from=build-stage /app/build /usr/share/nginx/html
+EXPOSE 80
+ENTRYPOINT [ "nginx", "-g", "daemon off;" ]
 ```
 
 # 077
